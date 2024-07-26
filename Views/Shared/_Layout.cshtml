@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NDAccountManager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/NDAccountManager.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3 p-2" aria-label="Ana Navigasyon">
+            <div class="container-fluid p-1">
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index" aria-label="Ana Sayfa">NDAccountManager</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Navigasyon Menüsünü Aç/Kapat">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1" aria-label="Navigasyon Menüsü">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Accounts" asp-action="Index" aria-label="Hesaplar Sayfası">Hesaplar</a>
+                        </li>
+                    </ul>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <div class="dropdown-center">
+                                    <button id="signOutButton" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Kullanıcı Menü">
+                                        @User.Identity.Name
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end mt-1" aria-label="Kullanıcı Menü Seçenekleri">
+                                        <li>
+                                            <a id="signOutButtonMenu" href="/MicrosoftIdentity/Account/Signout" class="nav-link dropdown-item text-primary text-center" aria-label="Çıkış Yap">Çıkış Yap  <i class="bi bi-box-arrow-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="/MicrosoftIdentity/Account/Signin" class="nav-link text-light" aria-label="Giriş Yap">Giriş Yap</a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3" aria-label="Ana İçerik Alanı">
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted" aria-label="Alt Bilgi">
+        <p class="text-end me-4 mb-0">© NDAccountManager @DateTime.Now.Year</p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js" aria-label="jQuery Script"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" aria-label="Bootstrap Bundle Script"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

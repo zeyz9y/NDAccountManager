@@ -1,0 +1,55 @@
+﻿@model NDAccountManager.Models.Account
+
+@{
+    ViewData["Title"] = "Oluştur";
+}
+
+<br />
+<div class="container mt-5">
+    <h1 class="text-center mb-5" aria-label="Hesap Oluşturma Başlığı">Hesap Oluştur</h1>
+    <div class="card shadow-sm" aria-label="Hesap Oluşturma Kartı">
+        <div class="card-body" aria-label="Kart Gövdesi">
+            <form asp-action="Create" class="needs-validation" novalidate aria-label="Hesap Oluşturma Formu">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3" aria-label="Form Hataları"></div>
+                <div class="mb-3">
+                    <label asp-for="AccountName" class="form-label" aria-label="Hesap Adı Etiketi">Hesap Adı</label>
+                    <input asp-for="AccountName" class="form-control" required aria-label="Hesap Adı Girişi" />
+                    <div class="invalid-feedback" asp-validation-for="AccountName" aria-label="Hesap Adı Hata Mesajı"></div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="UserName" class="form-label" aria-label="Kullanıcı Adı Etiketi">Kullanıcı Adı</label>
+                    <input asp-for="UserName" class="form-control" required aria-label="Kullanıcı Adı Girişi" />
+                    <div class="invalid-feedback" asp-validation-for="UserName" aria-label="Kullanıcı Adı Hata Mesajı"></div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label" aria-label="Şifre Etiketi">Şifre</label>
+                    <input asp-for="Password" type="password" class="form-control" required aria-label="Şifre Girişi" />
+                    <div class="invalid-feedback" asp-validation-for="Password" aria-label="Şifre Hata Mesajı"></div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Notes" class="form-label" aria-label="Notlar Etiketi">Notlar</label>
+                    <textarea asp-for="Notes" class="form-control" rows="3" aria-label="Notlar Girişi"></textarea>
+                    <div class="invalid-feedback" asp-validation-for="Notes" aria-label="Notlar Hata Mesajı"></div>
+                </div>
+                <div class="form-check mb-3" aria-label="Ortak Hesap Seçimi">
+                    <input class="form-check-input" asp-for="IsPublic" id="isPublic" aria-label="Ortak Hesap Seçim Kutusu" />
+                    <label class="form-check-label" for="isPublic" aria-label="Ortak Hesap Etiketi">Ortak Hesap</label>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary" aria-label="Hesap Oluştur Butonu">Oluştur</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-end" aria-label="Kart Altbilgisi">
+            <a asp-action="Index" class="btn btn-outline-secondary" aria-label="Geri Dön Tuşu">Geri Dön</a>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/CreatePageScript.js" asp-append-version="true" aria-label="Create Script"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

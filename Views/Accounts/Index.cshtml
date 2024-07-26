@@ -1,0 +1,164 @@
+﻿@model IEnumerable<NDAccountManager.Models.Account>
+
+@{
+    ViewData["Title"] = "Hesaplar";
+}
+
+<br />
+<h1 class="my-4 text-center">Hesaplar</h1>
+<div class="container mt-4">
+    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="personel-tab" data-bs-toggle="tab" data-bs-target="#personel-tab-pane" type="button" role="tab" aria-controls="personel-tab-pane" aria-selected="true" aria-label="Personel Tab">
+                <i class="bi bi-person-circle"></i> Personel
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="paylasilanlar-tab" data-bs-toggle="tab" data-bs-target="#paylasilanlar-tab-pane" type="button" role="tab" aria-controls="paylasilanlar-tab-pane" aria-selected="false" aria-label="Paylaşılanlar Tab">
+                <i class="bi bi-people-fill"></i> Paylaşılanlar
+            </button>
+        </li>
+        @if (User.IsInRole("Manager"))
+        {
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="manager-tab" data-bs-toggle="tab" data-bs-target="#manager-tab-pane" type="button" role="tab" aria-controls="manager-tab-pane" aria-selected="false" aria-label="Manager Tab">
+                    <i class="bi bi-person-fill-gear"></i> Manager
+                </button>
+            </li>
+        }
+    </ul>
+    <div class="input-group mt-4 mb-4">
+        <input type="text" id="searchInput" class="form-control" placeholder="Aramak istediğiniz kelimeyi girin..." aria-label="Arama Kutusu">
+        <button class="btn btn-outline-info" onclick="focusSearchInput()" aria-label="Arama Butonu"><i class="bi bi-search"></i></button>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="personel-tab-pane" role="tabpanel" aria-labelledby="personel-tab" tabindex="0">
+            <div id="personel-accounts" class="row row-cols-1 row-cols-md-2 g-4">
+                @foreach (var item in Model)
+                {
+                    if (User.Identity.Name == item.UserID)
+                    {
+                        <div class="col">
+                            <div class="card h-100 shadow-sm border-0 accountCard">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success"><i class="bi bi-person-vcard"></i> @Html.DisplayFor(modelItem => item.AccountName)</h5>
+                                    <p class="card-text"><strong>Kullanıcı Adı:</strong> @Html.DisplayFor(modelItem => item.UserName)</p>
+                                    @if (item.IsPublic)
+                                    {
+                                        <p class="card-text">
+                                            <strong>Ortak Hesap:</strong>
+                                            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Evet</span>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text">
+                                            <strong>Ortak Hesap:</strong>
+                                            <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Hayır</span>
+                                        </p>
+                                    }
+                                </div>
+                                <div class="card-footer bg-transparent border-0 d-flex justify-content-end">
+                                    <a asp-action="Edit" asp-route-id="@item.AccountID" class="btn btn-warning me-2" aria-label="Düzenle"><i class="bi bi-pencil-square"></i> Düzenle</a>
+                                    <a asp-action="Details" asp-route-id="@item.AccountID" class="btn btn-info me-2" aria-label="Detaylar"><i class="bi bi-info-circle"></i> Detaylar</a>
+                                    <a asp-action="Delete" asp-route-id="@item.AccountID" class="btn btn-danger" aria-label="Sil"><i class="bi bi-trash"></i> Sil</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div id="personel-pagination" class="btn-group"></div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="paylasilanlar-tab-pane" role="tabpanel" aria-labelledby="paylasilanlar-tab" tabindex="0">
+            <div id="shared-accounts" class="row row-cols-1 row-cols-md-2 g-4">
+                @foreach (var item in Model)
+                {
+                    if (item.IsShared && item.IsPublic)
+                    {
+                        <div class="col">
+                            <div class="card h-100 shadow-sm border-0 accountCard">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success"><i class="bi bi-person-vcard"></i> @Html.DisplayFor(modelItem => item.AccountName)</h5>
+                                    <p class="card-text"><strong>ID:</strong> @Html.DisplayFor(modelItem => item.UserID)</p>
+                                    <p class="card-text"><strong>Kullanıcı Adı:</strong> @Html.DisplayFor(modelItem => item.UserName)</p>
+                                </div>
+                                <div class="card-footer bg-transparent border-0 d-flex justify-content-end">
+                                    <a asp-action="Details" asp-route-id="@item.AccountID" class="btn btn-info" aria-label="Detaylar"><i class="bi bi-info-circle"></i> Detaylar</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div id="shared-pagination" class="btn-group"></div>
+            </div>
+        </div>
+        @if (User.IsInRole("Manager"))
+        {
+            <div class="tab-pane fade" id="manager-tab-pane" role="tabpanel" aria-labelledby="manager-tab" tabindex="0">
+                <div id="manager-accounts" class="row row-cols-1 row-cols-md-2 g-4">
+                    @foreach (var item in Model)
+                    {
+                        if (item.IsPublic)
+                        {
+                            <div class="col">
+                                <div class="card h-100 shadow-sm border-0 accountCard">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-success"><i class="bi bi-person-vcard"></i> @Html.DisplayFor(modelItem => item.AccountName)</h5>
+                                        <p class="card-text"><strong>ID:</strong> @Html.DisplayFor(modelItem => item.UserID)</p>
+                                        <p class="card-text"><strong>Kullanıcı Adı:</strong> @Html.DisplayFor(modelItem => item.UserName)</p>
+                                        @if (item.IsPublic)
+                                        {
+                                            <p class="card-text">
+                                                <strong>Ortak Hesap:</strong>
+                                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Evet</span>
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text">
+                                                <strong>Ortak Hesap:</strong>
+                                                <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Hayır</span>
+                                            </p>
+                                        }
+                                        @if (item.IsShared)
+                                        {
+                                            <p class="card-text">
+                                                <strong>Paylaşıldı:</strong>
+                                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Evet</span>
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text">
+                                                <strong>Paylaşıldı:</strong>
+                                                <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Hayır</span>
+                                            </p>
+                                        }
+                                    </div>
+                                    <div class="card-footer bg-transparent border-0 d-flex justify-content-end">
+                                        <a asp-action="Edit" asp-route-id="@item.AccountID" class="btn btn-warning me-2" aria-label="Düzenle"><i class="bi bi-pencil-square"></i> Düzenle</a>
+                                        <a asp-action="Details" asp-route-id="@item.AccountID" class="btn btn-info me-2" aria-label="Detaylar"><i class="bi bi-info-circle"></i> Detaylar</a>
+                                        <a asp-action="Delete" asp-route-id="@item.AccountID" class="btn btn-danger" aria-label="Sil"><i class="bi bi-trash"></i> Sil</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <div id="manager-pagination" class="btn-group"></div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="d-grid gap-2 mt-3">
+        <a class="btn btn-primary" asp-action="Create" aria-label="Yeni Hesap Oluştur"><i class="bi bi-plus-circle"></i> Yeni Hesap</a>
+    </div>
+</div>
+
+<script src="~/js/IndexPageScript.js" asp-append-version="true" aria-label="Index Script"></script>

@@ -1,0 +1,63 @@
+﻿@model NDAccountManager.Models.Account
+
+@{
+    ViewData["Title"] = "Sil";
+}
+
+<br />
+<div class="container mt-5">
+    <h2 class="text-center" aria-label="Hesap Silme Onayı Başlığı">Hesabı silmek istediğinizden emin misiniz?</h2>
+    <br />
+    <div class="card shadow-sm" aria-label="Hesap Silme Kartı">
+        <div class="card-body" aria-label="Kart Gövdesi">
+            <dl class="row mb-4" aria-label="Detay Listesi">
+                <dt class="col-sm-3 text-muted" aria-label="ID Başlığı">ID</dt>
+                <dd class="col-sm-9" aria-label="ID Değeri">@Html.DisplayFor(model => model.UserID)</dd>
+                <dt class="col-sm-3 text-muted" aria-label="Hesap Adı Başlığı">Hesap Adı</dt>
+                <dd class="col-sm-9" aria-label="Hesap Adı Değeri">@Html.DisplayFor(model => model.AccountName)</dd>
+                <dt class="col-sm-3 text-muted" aria-label="Kullanıcı Adı Başlığı">Kullanıcı Adı</dt>
+                <dd class="col-sm-9" aria-label="Kullanıcı Adı Değeri">@Html.DisplayFor(model => model.UserName)</dd>
+                <dt class="col-sm-3 text-muted" aria-label="Şifre Başlığı">Şifre</dt>
+                <dd class="col-sm-9" aria-label="Şifre Değeri">
+                    <div class="input-group" aria-label="Şifre Giriş Grubu">
+                        <input type="password" class="form-control" value="@Model.Password" id="passwordField" readonly aria-label="Şifre Alanı">
+                        <button class="btn btn-outline-info" type="button" id="togglePassword" aria-label="Şifre Gösterme Tuşu"><i class="bi bi-eye-slash"></i></button>
+                    </div>
+                </dd>
+                <dt class="col-sm-3 text-muted" aria-label="Notlar Başlığı">Notlar</dt>
+                <dd class="col-sm-9" aria-label="Notlar Değeri">@Html.DisplayFor(model => model.Notes)</dd>
+                <dt class="col-sm-3 text-muted" aria-label="Ortak Hesap Başlığı">Ortak Hesap</dt>
+                <dd class="col-sm-9" aria-label="Ortak Hesap Değeri">
+                    @if (Model.IsPublic)
+                    {
+                        <span class="badge bg-success" aria-label="Ortak Hesap Evet"><i class="bi bi-check-circle me-1"></i>Evet</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger" aria-label="Ortak Hesap Hayır"><i class="bi bi-x-circle me-1"></i>Hayır</span>
+                    }
+                </dd>
+                <dt class="col-sm-3 text-muted" aria-label="Paylaşıldı Başlığı">Paylaşıldı</dt>
+                <dd class="col-sm-9" aria-label="Paylaşıldı Değeri">
+                    @if (Model.IsShared)
+                    {
+                        <span class="badge bg-success" aria-label="Paylaşıldı Evet"><i class="bi bi-check-circle me-1"></i>Evet</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger" aria-label="Paylaşıldı Hayır"><i class="bi bi-x-circle me-1"></i>Hayır</span>
+                    }
+                </dd>
+            </dl>
+            <form asp-action="Delete" class="d-grid" aria-label="Hesap Silme Formu">
+                <input type="hidden" asp-for="AccountID" />
+                <input type="submit" value="Sil" class="btn btn-primary" aria-label="Hesabı Silme Butonu" />
+            </form>
+        </div>
+        <div class="card-footer text-end" aria-label="Kart Altbilgisi">
+            <a asp-action="Index" class="btn btn-outline-secondary" aria-label="Geri Dön Tuşu">Geri Dön</a>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/EyeIconScript.js" asp-append-version="true" aria-label="Icon Script"></script>

@@ -1,0 +1,71 @@
+﻿@model NDAccountManager.Models.Account
+
+@{
+    ViewData["Title"] = "Düzenle";
+}
+
+<h1 class="text-center mb-5">Düzenle</h1>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="AccountID" />
+                <input asp-for="UserID" type="hidden" />
+                <div class="mb-3">
+                    <label asp-for="AccountName" class="form-label" aria-label="Hesap Adı">Hesap Adı</label>
+                    <input asp-for="AccountName" class="form-control" aria-label="Hesap Adı" />
+                    <div class="invalid-feedback" asp-validation-for="AccountName"></div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="UserName" class="form-label" aria-label="Kullanıcı Adı">Kullanıcı Adı</label>
+                    <input asp-for="UserName" class="form-control" aria-label="Kullanıcı Adı" />
+                    <div class="invalid-feedback" asp-validation-for="UserName"></div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label" aria-label="Şifre">Şifre</label>
+                    <input asp-for="Password" class="form-control" aria-label="Şifre" />
+                    <div class="invalid-feedback" asp-validation-for="Password"></div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Notes" class="form-label" aria-label="Notlar">Notlar</label>
+                    <input asp-for="Notes" class="form-control" aria-label="Notlar" />
+                    <div class="invalid-feedback" asp-validation-for="Notes"></div>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" asp-for="IsPublic" id="isPublic" aria-label="Ortak Hesap" />
+                    <label class="form-check-label" for="isPublic">Ortak Hesap</label>
+                </div>
+                @if (User.IsInRole("Manager"))
+                {
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" asp-for="IsShared" id="isShared" aria-label="Paylaşıldı" />
+                        <label class="form-check-label" for="isShared">Paylaşıldı</label>
+                    </div>
+                }
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="limitedCheckbox" name="limitedCheckbox" onclick="toggleExpiryDate()" aria-label="Limitli mi?" />
+                    <label for="limitedCheckbox" class="form-check-label">Limitli mi?</label>
+                </div>
+                <div class="mb-3" id="dateInput" hidden>
+                    <label for="expiryDate" class="form-label">Paylaşım Bitiş Tarihi ve Saati</label>
+                    <input type="date" id="expiryDate" name="expiryDate" class="form-control" onchange="validateDate()" aria-label="Paylaşım Bitiş Tarihi ve Saati" />
+                </div>
+                <div class="d-grid">
+                    <input type="submit" value="Kaydet" class="btn btn-primary" aria-label="Kaydet" />
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-end">
+            <a asp-action="Index" class="btn btn-outline-secondary" aria-label="Geri Dön">Geri Dön</a>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/EditPageScript.js" asp-append-version="true" aria-label="Edit Script"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

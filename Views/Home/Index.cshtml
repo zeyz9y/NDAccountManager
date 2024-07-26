@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<br />
+<div class="text-center mt-4" aria-label="Ana Sayfa Hoşgeldiniz Bölümü">
+    <h2 class="display-4 mb-4 mt-4" aria-label="Hoşgeldiniz Başlığı">Hoş geldiniz @ViewBag.Name</h2>
+    <hr />
+    <h4 class="text-muted mt-4" aria-label="Birimi Başlığı">Birimi: @ViewBag.Role</h4>
+    <br />
+    <p class="lead" style="font-size: 25px;" aria-label="Ana Sayfa Açıklaması">Burada istediğiniz hesap bilgilerini paylaşabilir, görüntüleyebilir ve düzenleyebilirsiniz.</p>
+</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div id="accountCarousel" class="carousel slide shadow-sm" data-bs-ride="carousel" aria-label="Hesaplar Karuseli">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" aria-label="Hesaplar Görüntüleme Kartı">
+                        <div class="card shadow-sm border-success">
+                            <div class="card-body text-center" aria-label="Hesaplar Kartı İçeriği">
+                                <i class="bi bi-people-fill display-4 text-success" aria-label="Hesaplar İkonu"></i>
+                                <h4 class="card-title mt-3" aria-label="Hesaplar Kartı Başlığı">Hesaplar</h4>
+                                <p class="card-text" aria-label="Hesaplar Kartı Açıklaması">Hesapları görüntüle ve yönet.</p>
+                                <a href="/Accounts" class="btn btn-outline-success btn-lg" aria-label="Hesaplara Git Butonu"><i class="bi bi-journals"></i> Hesaplara Git</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" aria-label="Yeni Hesap Ekleme Kartı">
+                        <div class="card shadow-sm border-success">
+                            <div class="card-body text-center" aria-label="Yeni Hesap Ekleme Kartı İçeriği">
+                                <i class="bi bi-person-plus-fill display-4 text-success" aria-label="Yeni Hesap Ekleme İkonu"></i>
+                                <h4 class="card-title mt-3" aria-label="Yeni Hesap Ekleme Kartı Başlığı">Hesaplar</h4>
+                                <p class="card-text" aria-label="Yeni Hesap Ekleme Kartı Açıklaması">Yeni bir hesap ekle.</p>
+                                <a href="/Accounts/Create" class="btn btn-outline-success btn-lg" aria-label="Hesap Oluştur Butonu"><i class="bi bi-plus-circle-dotted"></i> Hesap Oluştur</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#accountCarousel" data-bs-slide="prev" aria-label="Önceki Slide">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#accountCarousel" data-bs-slide="next" aria-label="Sonraki Slide">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
