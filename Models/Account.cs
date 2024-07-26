@@ -23,6 +23,6 @@ namespace NDAccountManager.Models
 
         public bool IsPublic { get; set; }
 
-        public bool IsShared { get; set; }
+        public bool IsShared { get; set; } 
     }
 }
