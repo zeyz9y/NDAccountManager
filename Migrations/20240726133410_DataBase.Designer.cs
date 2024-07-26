@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace NDAccountManager.Migrations
+namespace NDAccountManager.Migrations 
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240726133410_DataBase")]
