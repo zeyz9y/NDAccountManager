@@ -14,7 +14,6 @@ namespace NDAccountManager.Models
         public string AccountName { get; set; }
 
         [Required]
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "Kullanıcı adınız 3-30 karakter uzunluğunda olmalıdır.")]
         public string UserName { get; set; }
 
         [Required]
