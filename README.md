@@ -1,32 +1,32 @@
 # NDAccountManager
-NDAccountManager, kullanıcıların farklı platformlarda ve hizmetlerde kullandıkları hesap bilgilerini güvenli bir şekilde saklayabileceği ve yönetebileceği bir web uygulamasıdır. 
-Bu proje, kullanıcıların çeşitli hesap bilgilerini merkezi bir yerde toplamasını ve yönetmesini sağlar. 
-Kullanıcılar web arayüzünden erişim bilgilerini kaydedebilir, düzenleyebilir ve görüntüleyebilir. 
-Ayrıca, kullanıcılar hesaplarını süreli veya süresiz olarak diğer kullanıcılarla paylaşabilirler.
+NDAccountManager, kullanÄ±cÄ±larÄ±n farklÄ± platformlarda ve hizmetlerde kullandÄ±klarÄ± hesap bilgilerini gÃ¼venli bir ÅŸekilde saklayabileceÄŸi ve yÃ¶netebileceÄŸi bir web uygulamasÄ±dÄ±r. 
+Bu proje, kullanÄ±cÄ±larÄ±n Ã§eÅŸitli hesap bilgilerini merkezi bir yerde toplamasÄ±nÄ± ve yÃ¶netmesini saÄŸlar. 
+KullanÄ±cÄ±lar web arayÃ¼zÃ¼nden eriÅŸim bilgilerini kaydedebilir, dÃ¼zenleyebilir ve gÃ¶rÃ¼ntÃ¼leyebilir. 
+AyrÄ±ca, kullanÄ±cÄ±lar hesaplarÄ±nÄ± sÃ¼reli veya sÃ¼resiz olarak diÄŸer kullanÄ±cÄ±larla paylaÅŸabilirler.
 
-## Kurulum ve yapılandırma
+## Kurulum ve yapÄ±landÄ±rma
 
-1. Azure AD (Entra ID) Ayarları 
+1. Azure AD (Entra ID) AyarlarÄ± 
 
-- Azure Portal'a Giriş Yapın: Azure Portal adresine gidin ve Azure hesabınıza giriş yapın.
-- App Registrations: Sol menüden "Azure Active Directory" seçeneğine tıklayın, ardından "App registrations" kısmına gidin ve yeni bir uygulama kaydı oluşturun.
+- Azure Portal'a GiriÅŸ YapÄ±n: Azure Portal adresine gidin ve Azure hesabÄ±nÄ±za giriÅŸ yapÄ±n.
+- App Registrations: Sol menÃ¼den "Azure Active Directory" seÃ§eneÄŸine tÄ±klayÄ±n, ardÄ±ndan "App registrations" kÄ±smÄ±na gidin ve yeni bir uygulama kaydÄ± oluÅŸturun.
 
 - Redirect URI Ekleme:
-  - "Redirect URIs" kısmına gidin ve "Add a Redirect URI" seçeneğine tıklayın.
-    - Web platformunu seçin ve aşağıdaki URL'leri ekleyin:
+  - "Redirect URIs" kÄ±smÄ±na gidin ve "Add a Redirect URI" seÃ§eneÄŸine tÄ±klayÄ±n.
+    - Web platformunu seÃ§in ve aÅŸaÄŸÄ±daki URL'leri ekleyin:
       - https://localhost:'sslPort'/signin-oidc
       - https://localhost:'sslPort'/signout-oidc
-    - sslPort değeri launchSettings.json dosyasında bulunabilir.
+    - sslPort deÄŸeri launchSettings.json dosyasÄ±nda bulunabilir.
+    - ID Tokens: "ID tokens" seÃ§eneÄŸinin iÅŸaretli olduÄŸundan emin olun.
+      
+- App Roles: "App roles" kÄ±smÄ±na gidin ve gerekli rolleri (Ã¶rneÄŸin: Manager, Sales, Development, Support) ekleyin.
+- KullanÄ±cÄ±lar ve Roller: Portalda kullanÄ±cÄ±lar oluÅŸturun ve belirlenen rolleri bu kullanÄ±cÄ±lara atayÄ±n.
+- API Permissions: Gerekli izinleri (API permissions) uygulamanÄ±za tanÄ±mlayÄ±n.
 
-- ID Tokens: "ID tokens" seçeneğinin işaretli olduğundan emin olun.
-- App Roles: "App roles" kısmına gidin ve gerekli rolleri (örneğin: Manager, Sales, Development, Support) ekleyin.
-- Kullanıcılar ve Roller: Portalda kullanıcılar oluşturun ve belirlenen rolleri bu kullanıcılara atayın.
-- API Permissions: Gerekli izinleri (API permissions) uygulamanıza tanımlayın.
 
+2. Uygulama YapÄ±landÄ±rmasÄ±
 
-2. Uygulama Yapılandırması
-
-- appsettings.json Dosyasını Düzenleyin:
+- appsettings.json DosyasÄ±nÄ± DÃ¼zenleyin:
 ```json
 {
   "EntraId": {
@@ -48,12 +48,12 @@ Ayrıca, kullanıcılar hesaplarını süreli veya süresiz olarak diğer kullanıcılarla
 }
 ```
 
-- Veritabanı Ayarları:
-  - PostgreSQL kullanın.
-  - Veritabanı bağlantısını appsettings.json dosyasında belirtilen şekilde yapılandırın.
+- VeritabanÄ± AyarlarÄ±:
+  - PostgreSQL kullanÄ±n.
+  - VeritabanÄ± baÄŸlantÄ±sÄ±nÄ± appsettings.json dosyasÄ±nda belirtilen ÅŸekilde yapÄ±landÄ±rÄ±n.
 
-- Veritabanı Tablosunu Oluşturun:
-  - Entity Framework Migration araçlarını kullanarak veritabanı tablosunu oluşturun. Bu işlem için terminal veya komut satırında aşağıdaki komutları kullanabilirsiniz:
+- VeritabanÄ± Tablosunu OluÅŸturun:
+  - Entity Framework Migration araÃ§larÄ±nÄ± kullanarak veritabanÄ± tablosunu oluÅŸturun. Bu iÅŸlem iÃ§in terminal veya komut satÄ±rÄ±nda aÅŸaÄŸÄ±daki komutlarÄ± kullanabilirsiniz:
     
     ```
     dotnet ef migrations add InitialCreate
