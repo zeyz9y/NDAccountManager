@@ -27,6 +27,7 @@ Ayrıca, kullanıcılar hesaplarını süreli veya süresiz olarak diğer kullan
 2. Uygulama Yapılandırması
 
 - appsettings.json Dosyasını Düzenleyin:
+- Client Secret almak için uygulamanızın sayfasında, sol taraftaki menüden "Certificates & secrets" sekmesine tıklayın.
 ```json
 {
   "EntraId": {
